@@ -8,8 +8,8 @@ class Goban
 protected:
 	int size;
 	bool noirDoitJouer = true;
-	int yellowPoints = 0; //Noir
-	float pinkPoints = 6.5;		 //Blanc
+	int yellowPoints = 0;	//Noir
+	float pinkPoints = 6.5; //Blanc
 
 	Case* boxNotAvaiable;
 	bool unavaibleTurn = false;

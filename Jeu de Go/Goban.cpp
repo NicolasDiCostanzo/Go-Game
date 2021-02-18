@@ -96,8 +96,8 @@ void Goban::ResetUnavaibleBox() { SetUnavaiableBox(NULL); }
 
 void Goban::PassTurn() {
 
-	if (GetPlayerColor() == Etat::Noir) AddYellowPoints(1);
-	else								AddPinkPoints(1);
+	if (GetPlayerColor() == Etat::Noir) AddPinkPoints(1);
+	else								AddYellowPoints(1);
 
 	DisplayScore();
 

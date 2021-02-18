@@ -236,7 +236,7 @@ void DisplayScore() {
     string scoreWhite = Round(goban->GetPinkPoints());;
     string scoreBlack = to_string(goban->GetYellowPoints());
 
-    string str = scoreWhite.append("|").append(scoreBlack);
+    string str = scoreBlack.append("|").append(scoreWhite);
     const char* c = &str[0];
 
     SDL_Surface* textScore = TTF_RenderText_Blended(police, c, white);
@@ -267,8 +267,8 @@ void DisplayWinner() {
 
     SDL_Surface* winnerImg;
 
-    if (goban->GetPinkPoints() > goban->GetYellowPoints()) winnerImg = yellowWin;
-    else winnerImg = pinkWin;
+    if (goban->GetPinkPoints() > goban->GetYellowPoints()) winnerImg = pinkWin;
+    else winnerImg = yellowWin;
 
     //Taille encadré
     SDL_Rect taille;
@@ -456,8 +456,8 @@ void PointsCounting() {
 
                 Etat etatEntourageGroupe = CheckGroupSurroundingsStatus(tempVector);
 
-                if      (etatEntourageGroupe == Etat::Noir)  goban->AddPinkPoints(tempVector.size());
-                else if (etatEntourageGroupe == Etat::Blanc) goban->AddYellowPoints(tempVector.size());
+                if      (etatEntourageGroupe == Etat::Noir)  goban->AddYellowPoints(tempVector.size());
+                else if (etatEntourageGroupe == Etat::Blanc) goban->AddPinkPoints(tempVector.size());
             }
         }
         DisplayScore();

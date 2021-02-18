@@ -235,8 +235,8 @@ void Case::Erase() {
 	SDL_Texture* newTexture = SDL_CreateTextureFromSurface(p_renderer, caseVideSurface);
 	SetTexture(newTexture);
 
-	if (p_goban->GetPlayerColor() == Etat::Noir)		 p_goban->AddPinkPoints(1);
-	else if (p_goban->GetPlayerColor() == Etat::Blanc)	 p_goban->AddYellowPoints(1);	
+	if (p_goban->GetPlayerColor() == Etat::Noir)		 p_goban->AddYellowPoints(1);
+	else if (p_goban->GetPlayerColor() == Etat::Blanc)	 p_goban->AddPinkPoints(1);	
 
 	//cout << "noir : " << p_goban->GetPtsNoir() << endl;
 	//cout << "blanc : " << p_goban->GetPtsBlanc() << endl;
