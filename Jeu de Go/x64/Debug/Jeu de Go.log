@@ -1,5 +1,6 @@
 ﻿  Source.cpp
-D:\GitHub\Go-Game\Jeu de Go\Source.cpp(459,102): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-D:\GitHub\Go-Game\Jeu de Go\Source.cpp(460,100): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-D:\GitHub\Go-Game\Jeu de Go\Source.cpp(92): warning C4715: 'ChoiceSizeGoban_Screen' : les chemins de contrôle ne retournent pas tous une valeur
+D:\GitHub\Go-Game\Jeu de Go\Header.h(28,40): warning C4244: 'initialisation' : conversion de 'float' en 'int', perte possible de données
+D:\GitHub\Go-Game\Jeu de Go\Source.cpp(461,102): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+D:\GitHub\Go-Game\Jeu de Go\Source.cpp(462,100): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+D:\GitHub\Go-Game\Jeu de Go\Source.cpp(94): warning C4715: 'ChoiceSizeGoban_Screen' : les chemins de contrôle ne retournent pas tous une valeur
   Jeu de Go.vcxproj -> D:\GitHub\Go-Game\x64\Debug\Jeu de Go.exe

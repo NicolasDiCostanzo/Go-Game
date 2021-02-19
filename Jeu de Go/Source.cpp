@@ -71,7 +71,9 @@ vector<int> InitUITaille() {
         int margeY_entreBoutons = 10;
         int taille = taillesGoban[i];
 
-        Bouton* bouton = new Bouton(renderer, newBoutonSurface, to_string(taille), SCREEN_WIDTH / 2 - newBoutonSurface->w / 2, i * (newBoutonSurface->h + margeY_entreBoutons) + marginTop, newBoutonSurface->w, newBoutonSurface->h);
+        string textInButton = to_string(taille).append("x").append(to_string(taille));
+
+        Bouton* bouton = new Bouton(renderer, newBoutonSurface, textInButton, SCREEN_WIDTH / 2 - newBoutonSurface->w / 2, i * (newBoutonSurface->h + margeY_entreBoutons) + marginTop, newBoutonSurface->w, newBoutonSurface->h);
 
         choices_btns.push_back(bouton);
     }
@@ -226,11 +228,11 @@ void DisplayScore() {
 
     int positionCaseY = goban->boxes[0][goban->GetSize() - 1]->GetPositionInPx().second;
 
-    int marginTop = 30;
+    int marginBottom = 10;
 
     SDL_Rect positionSurface;
     positionSurface.x = SCREEN_WIDTH / 2 - scoreBackground->w / 2;
-    positionSurface.y = SCREEN_HEIGHT - scoreBackground->h - marginTop;
+    positionSurface.y = SCREEN_HEIGHT - scoreBackground->h - marginBottom;
 
 
     string scoreWhite = Round(goban->GetPinkPoints());;
@@ -271,9 +273,9 @@ void DisplayWinner() {
     else winnerImg = yellowWin;
 
     //Taille encadré
-    SDL_Rect taille;
-    taille.x = winnerImg->w / 2;
-    taille.y = winnerImg->h / 2;
+    SDL_Rect size;
+    size.x = winnerImg->w / 2;
+    size.y = winnerImg->h / 2;
 
     //Position de l'encadré
     SDL_Rect pos;
@@ -282,10 +284,10 @@ void DisplayWinner() {
     pos.x = SCREEN_WIDTH - winnerImg->w / 2 - marginTop;
     pos.y = marginRight;
 
-    CreateBackground(renderer, winnerImg, pos.x, pos.y, taille.x, taille.y);
+    CreateBackground(renderer, winnerImg, pos.x, pos.y, size.x, size.y);
 
     int marginBottom = 30;
-    replay_btn = new Bouton(renderer, rejouerBouton_surface, "Rejouer", pos.x + (taille.x / 2 - rejouerBouton_surface->w / 4), pos.y + taille.y - rejouerBouton_surface->h / 2 - marginBottom, rejouerBouton_surface->w / 2, rejouerBouton_surface->h / 2);
+    replay_btn = new Bouton(renderer, rejouerBouton_surface, "Rejouer", pos.x + (size.x / 2 - rejouerBouton_surface->w / 4), pos.y + size.y - rejouerBouton_surface->h / 2 - marginBottom, rejouerBouton_surface->w / 2, rejouerBouton_surface->h / 2);
 }
 
 
@@ -300,10 +302,10 @@ void LoopGame() {
     }
 
     if (gameIsRunning) {
-        int tailleGoban = goban->GetSize();
+        int gobanSize = goban->GetSize();
 
-        for (int i = 0; i < tailleGoban; i++)
-            for (int j = 0; j < tailleGoban; j++)
+        for (int i = 0; i < gobanSize; i++)
+            for (int j = 0; j < gobanSize; j++)
                 goban->boxes[i][j]->handleEvent(&event);
 
         if (givingUp_btn->handleEvent(&event))  goban->GivingUp();
@@ -328,13 +330,13 @@ string Round(float value) {
 
     vector<char> tempVector;
 
-    bool chiffresApresPoint = false;
+    bool figureIsAfterComma = false;
 
     for (int i = 0; i < result.size(); i++) {
         tempVector.push_back(result[i]);
 
-        if (result[i] == '.') chiffresApresPoint = true;
-        else if (chiffresApresPoint) break;
+        if (result[i] == '.') figureIsAfterComma = true;
+        else if (figureIsAfterComma) break;
     }
 
     string stringOut(tempVector.begin(), tempVector.end());
@@ -375,28 +377,28 @@ vector<Case*> StoneGroup(Case* a_case) {
 
 Etat CheckGroupSurroundingsStatus(vector<Case*> a_groupeDeCases) {
 
-    Etat etatEntourageGroupe = Etat::Empty;
+    Etat stateSurroundingsGroup = Etat::Empty;
 
     for (int i = 0; i < a_groupeDeCases.size(); i++)
     {
         Case* newCase = a_groupeDeCases[i];
 
-        vector<Case*> entourageNewCase = newCase->GetSurroundings();
+        vector<Case*> surroundingsNewBox = newCase->GetSurroundings();
 
-        for (int j = 0; j < entourageNewCase.size() ; j++)
+        for (int j = 0; j < surroundingsNewBox.size() ; j++)
         {
-            Case* newCaseEntourage = entourageNewCase[j];
+            Case* newCaseEntourage = surroundingsNewBox[j];
 
             if (newCaseEntourage->GetState() != Etat::Empty) {
-                if (etatEntourageGroupe == Etat::Empty)
-                    etatEntourageGroupe = newCaseEntourage->GetState();
-                else if (etatEntourageGroupe != Etat::Empty && newCaseEntourage->GetState() != etatEntourageGroupe) 
+                if (stateSurroundingsGroup == Etat::Empty)
+                    stateSurroundingsGroup = newCaseEntourage->GetState();
+                else if (stateSurroundingsGroup != Etat::Empty && newCaseEntourage->GetState() != stateSurroundingsGroup) 
                     return Etat::Empty;
             }
         }
     }
 
-    return etatEntourageGroupe;
+    return stateSurroundingsGroup;
 }
 
 

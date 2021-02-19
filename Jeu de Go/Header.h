@@ -23,10 +23,10 @@
 
 using namespace std;
 
-const int SCREEN_WIDTH = 1440;
+const int SCREEN_WIDTH = 1400;
 const float ratio = 1.619f;
-//const int SCREEN_HEIGHT = SCREEN_WIDTH / ratio;
-const int SCREEN_HEIGHT = 900;
+const int SCREEN_HEIGHT = SCREEN_WIDTH / ratio;
+//const int SCREEN_HEIGHT = 900;
 
 const int BOX_SIZE = 30;
 
